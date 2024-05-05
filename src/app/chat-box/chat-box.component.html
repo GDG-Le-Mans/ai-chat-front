@@ -1,0 +1,15 @@
+<div class="container" [formGroup]="formGroup">
+  <textarea
+    formControlName="message"
+    placeholder="Poser une question..."
+    (keydown.enter)="submitEnter($event)"
+    (keydown)="onKeyPress($event)"
+  ></textarea>
+  <button (click)="sendMessage()" mat-icon-button>
+    <mat-icon>arrow_upward</mat-icon>
+  </button>
+  <p>
+    Le contenu généré par l'intelligence artificielle peut être incorrect,
+    veillez à l'utiliser avec discernement
+  </p>
+</div>

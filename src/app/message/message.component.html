@@ -1,0 +1,14 @@
+<div class="message-container">
+    <div class="icon">
+        <mat-icon>{{message.role=="assistant" ? "smart_toy":"person"}}</mat-icon>
+    </div>
+    <div class="message">
+        <div class="title">
+            <p class="author">{{message.author}}</p>
+            <p class="time">{{message.time.toLocaleString()}}</p>
+        </div>
+        <div class="content">
+            <p [appMarkdown]="message.content"></p>
+        </div>
+    </div>
+</div>
