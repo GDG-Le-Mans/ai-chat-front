@@ -1,5 +1,5 @@
 <div class="container">
-    @for(mess of messages(); track mess){
+    @for(mess of messages(); track mess.content){
         <app-message [message]="mess"></app-message>
     }
 </div>
