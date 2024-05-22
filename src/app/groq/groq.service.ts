@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, Signal, WritableSignal, computed, signal } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
 import { Message } from '../models/message';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class GroqService {
   messages = computed(() => [...this.history(), this.currentMessage()]);
 
   constructor(private readonly httpClient: HttpClient) {
-    const eventSource = new EventSource('http://localhost:3000/sse');
+    const eventSource = new EventSource(`${environment.server}/sse`);
     eventSource.addEventListener('message', ({ data }: { data: string} ) => {
       if(data.length === 0) return;
       if(data.endsWith('<|END|>')) {
@@ -32,7 +33,7 @@ export class GroqService {
   }
 
   sendMessage(message: string) {
-    const postQuery = this.httpClient.post('http://localhost:3000/', {message: {role: "user", content: message}, history: this.history().map(m => ({role: m.role, content: m.content}))});
+    const postQuery = this.httpClient.post(`${environment.server}/`, {message: {role: "user", content: message}, history: this.history().map(m => ({role: m.role, content: m.content}))});
     this.history.update(mess => {
       return [...mess, {
         content: message,
